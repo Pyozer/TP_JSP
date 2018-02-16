@@ -41,4 +41,28 @@ public class Piste {
 	public void setUrl(String inUrl) {
 		url = inUrl;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		Piste other = (Piste) obj;
+		
+		if (refPiste == null && other.refPiste != null)
+			return false;
+		else if (!refPiste.equals(other.refPiste))
+			return false;
+		
+		if (titre == null && other.titre != null)
+				return false;
+		else if (!titre.equals(other.titre))
+			return false;
+		if (url == null && other.url != null)
+				return false;
+		else if (!url.equals(other.url))
+			return false;
+		return true;
+	}
 }

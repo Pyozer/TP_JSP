@@ -19,7 +19,7 @@ import commerce.catalogue.domaine.utilitaire.UniqueKeyGenerator;
 
 public class CatalogueManager {
 
-	private List articles; 
+	private List<Article> articles; 
 	
 	public Article chercherArticleParRef(String inRefArticle) throws Exception {
 		Article article ;
@@ -56,7 +56,8 @@ public class CatalogueManager {
 		try {
 			session.beginTransaction();
 			if (inArticle.getRefArticle() == null) {
-				inArticle.setRefArticle(new UniqueKeyGenerator().getUniqueId()) ;
+				new UniqueKeyGenerator();
+				inArticle.setRefArticle(UniqueKeyGenerator.getUniqueId()) ;
 				session.save(inArticle) ;
 			}
 			else {
@@ -75,7 +76,8 @@ public class CatalogueManager {
 		try {
 			session.beginTransaction();
 			if (inPiste.getRefPiste() == null) {
-				inPiste.setRefPiste(new UniqueKeyGenerator().getUniqueId()) ;
+				new UniqueKeyGenerator();
+				inPiste.setRefPiste(UniqueKeyGenerator.getUniqueId()) ;
 				session.save(inPiste) ;
 			}
 			else {
@@ -89,10 +91,10 @@ public class CatalogueManager {
 			throw e; 
 		}
 	}
-	public void setArticles(List inArticles) throws Exception {
+	public void setArticles(List<Article> inArticles) throws Exception {
 		articles = inArticles;
 	}
-	public List getArticles() throws Exception {
+	public List<Article> getArticles() throws Exception {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession() ;
 		try {
 			session.beginTransaction();
