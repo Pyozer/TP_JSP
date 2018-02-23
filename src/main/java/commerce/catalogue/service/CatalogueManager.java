@@ -22,7 +22,7 @@ public class CatalogueManager {
 	private List<Article> articles; 
 	
 	public Article chercherArticleParRef(String inRefArticle) throws Exception {
-		Article article ;
+		Article article;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession() ;
 		try {
 			session.beginTransaction();
@@ -117,7 +117,7 @@ public class CatalogueManager {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession() ;
 		try {
 			session.beginTransaction();
-			Query query = session.createQuery("select * from commerce.catalogue.domaine.modele.Article article where lower(article.titre) LIKE lower(:titre)");
+			Query query = session.createQuery("from commerce.catalogue.domaine.modele.Article article where lower(article.titre) LIKE lower(:titre)");
 			query.setParameter("titre", "%" + searchTitre + "%");
 			articles = query.list();
 			session.getTransaction().commit();
