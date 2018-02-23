@@ -36,6 +36,7 @@ public class CatalogueManager {
 		}
 		return (article) ;
 	}
+	
 	public void supprimerArticleParRef(String inRefArticle) throws Exception {
 		Article article ;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession() ;
@@ -91,15 +92,34 @@ public class CatalogueManager {
 			throw e; 
 		}
 	}
+	
 	public void setArticles(List<Article> inArticles) throws Exception {
 		articles = inArticles;
 	}
+	
 	public List<Article> getArticles() throws Exception {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession() ;
 		try {
 			session.beginTransaction();
-			Query query = session.createQuery("from commerce.catalogue.domaine.modele.Article") ;
-			articles = query.list() ;
+			Query query = session.createQuery("from commerce.catalogue.domaine.modele.Article");
+			articles = query.list();
+			session.getTransaction().commit();
+		}
+		catch (RuntimeException e) {
+			if (session.getTransaction() != null)
+				session.getTransaction().rollback();
+			throw e; 
+		}
+		return articles ;
+	}
+	
+	public List<Article> rechercherArticles(String searchTitre) throws Exception {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession() ;
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("select * from commerce.catalogue.domaine.modele.Article article where lower(article.titre) LIKE lower(:titre)");
+			query.setParameter("titre", "%" + searchTitre + "%");
+			articles = query.list();
 			session.getTransaction().commit();
 		}
 		catch (RuntimeException e) {

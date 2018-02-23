@@ -1,3 +1,4 @@
+<%@page import="org.omg.CORBA.Request"%>
 <%@ page pageEncoding="UTF-8"%>
 <%@ include file="enTetePage.html"%>
 <script type="text/javascript" src="./js/playListJs.jsp"></script>
@@ -8,7 +9,7 @@
 <%@ page import="commerce.catalogue.domaine.modele.Piste"%>
 <%@ page import="java.util.Iterator"%>
 <%
-	if (session.getAttribute("panier")==null) {
+	if (session.getAttribute("panier") == null) {
 		response.sendRedirect("./index.jsp");
 	} else {
 %>
@@ -29,13 +30,12 @@
 	<div class="col-full">
 		<div class="primary" class="content-area">
 			<section id="main" class="site-main" role="main">
-				<h1 class="page-title">Résultats de la recherche</h1>
+				<h1 class="page-title">Résultats de la recherche : <%= request.getParameter("search")  %></h1>
 				<ul class="products">
 					<%
-						CatalogueManager catalogueManager = (CatalogueManager) application
-									.getAttribute("catalogueManager");
-							Iterator<Article> listeDesArticles = catalogueManager
-									.getArticles().iterator();
+						CatalogueManager catalogueManager = (CatalogueManager) application.getAttribute("catalogueManager");
+							Iterator<Article> listeDesArticles = catalogueManager.rechercherArticles(request.getParameter("search"))
+									.iterator();
 							Livre livre = null;
 							Musique musique = null;
 							Article article;
@@ -43,32 +43,32 @@
 								article = (Article) listeDesArticles.next();
 					%>
 					<li class="product type-product"><a
-						href="<%=response.encodeURL("./controlePanier.jsp?refArticle="
-								+ article.getRefArticle()
-						+ "&amp;commande=ajouterLigne")%>"> <img
-							src="<% if (article.getImage().startsWith("http")) 
-									    out.print(article.getImage()) ;
-							        else
-							        	out.print("./images/"+article.getImage()) ; %>"
+						href="<%=response.encodeURL("./controlePanier.jsp?refArticle=" + article.getRefArticle()
+							+ "&amp;commande=ajouterLigne")%>">
+							<img
+							src="<%if (article.getImage().startsWith("http"))
+						out.print(article.getImage());
+					else
+						out.print("./images/" + article.getImage());%>"
 							class="attachment-shop_catalog wp-post-image" alt="poster_2_up"
-							height="300" width="300"/>
+							height="300" width="300" />
 							<h3><%=article.getTitre()%></h3> <span class="price"><ins>
 									<span class="amount"><%=article.getPrix()%> €</span>
 								</ins></span>
 
 					</a> <a
-						href="<%=response.encodeURL("./controlePanier.jsp?refArticle="
-								+ article.getRefArticle()
-						+ "&amp;commande=ajouterLigne")%>"
+						href="<%=response.encodeURL("./controlePanier.jsp?refArticle=" + article.getRefArticle()
+							+ "&amp;commande=ajouterLigne")%>"
 						class="button add_to_cart_button product_type_simple">Mettre
-							dans le panier</a>
-<%
-                            	if (article instanceof Musique) { 
-                            		musique = (Musique) article;
-                            		if (musique.getPistes().size() > 0) {
-%>
-						<div id="jquery_jplayer_<%=article.getRefArticle()%>" class="jp-jplayer"></div>
-						<div id="jp_container_<%=article.getRefArticle()%>" class="jp-audio" role="application">
+							dans le panier</a> <%
+ 	if (article instanceof Musique) {
+ 				musique = (Musique) article;
+ 				if (musique.getPistes().size() > 0) {
+ %>
+						<div id="jquery_jplayer_<%=article.getRefArticle()%>"
+							class="jp-jplayer"></div>
+						<div id="jp_container_<%=article.getRefArticle()%>"
+							class="jp-audio" role="application">
 							<div class="jp-type-playlist">
 								<div class="jp-gui jp-interface">
 									<div class="jp-controls-holder">
@@ -92,11 +92,10 @@
 										plugin</a>.
 								</div>
 							</div>
-						</div> 
-<%
-                            		}
-                            	}
-							}
+						</div> <%
+ 	}
+ 			}
+ 		}
  %>
 				</ul>
 			</section>
