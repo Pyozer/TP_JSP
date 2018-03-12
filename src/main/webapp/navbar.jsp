@@ -1,5 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page import="commerce.gestion.Panier"%>
+<%
+	int nbArticle = 0;
+	if(session.getAttribute("panier") != null) {
+		Panier lePanier = (Panier) session.getAttribute("panier");
+		nbArticle = lePanier.getLignesPanier().size();
+	}
+%>
 <nav class="navbar navbar-expand-lg navbar-dark primary-color">
 
     <a class="navbar-brand" href="/tpv35/">Site marchand</a>
@@ -17,7 +24,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<%=response.encodeURL("./controlePanier.jsp")%>">Panier</a>
+                <a class="nav-link" href="<%=response.encodeURL("./controlePanier.jsp")%>">Panier  <span class="badge badge-pill pink"><%= nbArticle %></span></a>
             </li>
         </ul>
         <!-- Links -->
