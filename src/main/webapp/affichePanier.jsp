@@ -1,138 +1,151 @@
 <%@ page pageEncoding="UTF-8"%>
-<%@ include file="enTetePage.html"%>
+
 <%@ page import="commerce.catalogue.service.CatalogueManager"%>
 <%@ page import="commerce.catalogue.domaine.modele.Article"%>
 <%@ page import="commerce.gestion.Panier"%>
 <%@ page import="commerce.gestion.LignePanier"%>
 <%@ page import="java.util.Iterator"%>
+
+<%@ include file="enTetePage.html"%>
+
+<%@ include file="navbar.jsp"%>
+
 <%
 	if (session.getAttribute("panier") == null) {
 		response.sendRedirect("./index.jsp");
 	} else {
 		Panier lePanier = (Panier) session.getAttribute("panier");
-		CatalogueManager catalogueManager = (CatalogueManager) application
-				.getAttribute("catalogueManager");
+		CatalogueManager catalogueManager = (CatalogueManager) application.getAttribute("catalogueManager");
 %>
-<nav id="navigation" class="col-full" role="navigation">
-	<ul id="main-nav" class="nav fl">
-		<li id="menu-item-290"
-			class="menu-item menu-item-type-custom menu-item-object-custom">
-			<a href="<%=response.encodeURL("./afficheRecherche.jsp")%>">Rechercher
-				un article</a>
-		</li>
-		<li id="menu-item-290"
-			class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item">
-			<a href="<%=response.encodeURL("./controlePanier.jsp")%>">Panier</a>
-		</li>
-	</ul>
-</nav>
-<div id="content" class="col-full">
-	<div id="main-sidebar-container">
-		<section class="entry">
-			<div class="woocommerce">
-				<form
-					action="<%=response
-							.encodeURL("controlePanier.jsp?commande=recalculerPanier")%>"
-					name="panier" method="post">
-					<table class="shop_table cart" cellspacing="0">
-						<thead>
-							<tr>
-								<th class="product-remove"></th>
-								<th class="product-thumbnail"></th>
-								<th class="product-name">Produit</th>
-								<th class="product-price">Prix</th>
-								<th class="product-quantity">Quantité</th>
-								<th class="product-subtotal">Total</th>
-							</tr>
-						</thead>
-						<%
-							Iterator it;
-							Article unArticle;
-							it = lePanier.getLignesPanier().iterator();
-									LignePanier uneLignePanier;
-									while (it.hasNext()) {
-										uneLignePanier = (LignePanier) it.next();
-										unArticle = uneLignePanier.getArticle();
-						%>
-						<tbody>
-							<tr class="cart_item">
-								<td class="product-remove"><a class="remove"
-									title="Remove this item"
-									href="<%=response
-								.encodeURL("./controlePanier.jsp?refArticle="
-										+ uneLignePanier.getArticle()
-												.getRefArticle()
-										+ "&amp;commande=supprimerLigne")%>">×</a>
-								</td>
-								<td class="product-thumbnail"><img
-									class="attachment-shop_thumbnail wp-post-image" width="145"
-									height="145" alt="hoodie_4_front"
-									src="<% if (unArticle.getImage().startsWith("http")) 
-									    out.print(unArticle.getImage()) ;
-							        else
-							        	out.print("./images/"+unArticle.getImage()) ; %>"/></td>
-								<td class="product-name"><%=unArticle.getTitre()%></td>
-								<td class="product-price"><span class="amount"><%=uneLignePanier.getPrixUnitaire()%>€</span></td>
-								<td class="product-quantity">
-									<div class="quantity">
-										<input class="input-text qty text" type="number" size="4"
-											title="Qty" value="<%=uneLignePanier.getQuantite()%>"
-											name="cart[<%=uneLignePanier.getArticle().getRefArticle()%>][qty]"
+
+<div class="container my-5">
+	<section>
+			<form
+				action="<%= response.encodeURL("controlePanier.jsp?commande=recalculerPanier") %>"
+				name="panier" method="post">
+
+		        <div class="table-responsive">
+		            <table class="table product-table">
+		                <thead class="mdb-color lighten-5">
+		                    <tr>
+		                        <th></th>
+		                        <th class="font-weight-bold">
+		                            <strong>Produit</strong>
+		                        </th>
+		                        <th class="font-weight-bold">
+		                            <strong>Prix</strong>
+		                        </th>
+		                        <th class="font-weight-bold">
+		                            <strong>Quantité</strong>
+		                        </th>
+		                        <th class="font-weight-bold">
+		                            <strong>Total</strong>
+		                        </th>
+		                        <th></th>
+		                    </tr>
+		                </thead>
+		                <tbody>
+		                	<%
+							Iterator<LignePanier> it = lePanier.getLignesPanier().iterator();
+							while (it.hasNext()) {
+								LignePanier lignePanier = (LignePanier) it.next();
+								Article article = lignePanier.getArticle();
+								%>
+								<tr>
+									<th scope="row">
+										<a href="<%=response.encodeURL("./afficheArticle.jsp?refArticle=" + article.getRefArticle())%>">
+				                            <img
+												class="img-fluid z-depth-0"
+												alt="<%= article.getTitre() %>"
+												src="<%= (article.getImage().startsWith("http")) ? article.getImage() : "./images/" + article.getImage() %>" />
+			                        	</a>
+			                        </th>
+			                        <td>
+			                            <h5 class="mt-3">
+			                                <a href="<%=response.encodeURL("./afficheArticle.jsp?refArticle=" + article.getRefArticle())%>">
+			                                	<strong><%= article.getTitre()%></strong>
+			                                </a>
+			                            </h5>
+			                        </td>
+			                        <td>
+			                        	<%= article.getPrix() %> €
+			                        </td>
+			                        <td class="center-on-small-only">
+									    <input
+									    	class="form-control col-sm-3"
+									    	type="number"
+											title="Qty" value="<%= lignePanier.getQuantite() %>"
+											name="cart[<%= lignePanier.getArticle().getRefArticle() %>][qty]"
 											min="1" step="1">
-									</div>
-								</td>
-								<td class="product-subtotal"><span class="amount"><%=uneLignePanier.getPrixTotal()%>€</span></td>
-							</tr>
+			                        </td>
+			                        <td class="font-weight-bold">
+			                            <strong><%= lignePanier.getPrixTotal() %>€</strong>
+			                        </td>
+									<td>
+										<a
+											class="btn btn-sm btn-primary"
+											data-toggle="tooltip"
+											data-placement="top"
+											title="Remove item"
+											href="<%= response.encodeURL("./controlePanier.jsp?refArticle="
+												+ lignePanier.getArticle().getRefArticle()
+												+ "&amp;commande=supprimerLigne")%>">
+											<i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+										</a>
+									</td>
+								</tr>
 							<%
 								}
 							%>
+		                </tbody>
+		            </table>
+		        </div>
+				<input class="btn btn-primary btn-rounded" type="submit" value="Mise à jour du panier" name="update_cart" />
+				<a
+					href="<%=response.encodeURL("./controlePanier.jsp?commande=viderPanier")%>"
+					class="btn btn-outline-danger btn-rounded">
+					Vider le panier
+				</a>
+			</form>
+			<div class="row mt-5">
+				<div class="col-12">
+					<h2>Total de la commande</h2>
+					<table class="table table-bordered table-responsive w-auto">
+						<tbody>
 							<tr>
-								<td class="actions" colspan="6"><input class="button"
-									type="submit" value="Mise à jour du panier" name="update_cart" /></td>
+								<th class="blue-grey lighten-4 text-right">
+									<strong>Sous-total :</strong>
+								</th>
+								<td>
+									<span class="amount"><%=lePanier.getTotal()%>€</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="blue-grey lighten-4 text-right">
+									<strong>Frais de port :</strong>
+								</th>
+								<td>Gratuit</td>
+							</tr>
+							<tr>
+								<th class="blue-grey lighten-4 text-right">
+									<strong>Total :</strong>
+								</th>
+								<td>
+									<strong>
+										<span class="amount"><%=lePanier.getTotal()%>€</span>
+									</strong>
+								</td>
 							</tr>
 						</tbody>
 					</table>
-				</form>
-				<div class="cart-collaterals">
-					<div class="cross-sells"></div>
-					<div class="cart_totals ">
-						<h2>Total de la commande</h2>
-						<table cellspacing="0">
-							<tbody>
-								<tr class="cart-subtotal">
-									<th>Sous-total</th>
-									<td><span class="amount"><%=lePanier.getTotal()%>€</span></td>
-								</tr>
-								<tr class="shipping">
-									<th>Frait de port</th>
-									<td>Gratuit</td>
-								</tr>
-								<tr class="order-total">
-									<th>Total</th>
-									<td><strong> <span class="amount"><%=lePanier.getTotal()%>€</span>
-									</strong></td>
-								</tr>
-							</tbody>
-						</table>
-						<div class="wc-proceed-to-checkout">
-							<a
-								href="<%=response
-							.encodeURL("./controleCommande.jsp?commande=effectuerCommander")%>"
-								class="checkout-button button alt wc-forward">Effectuer la
-								commande</a>
-						</div>
-						<div class="wc-proceed-to-checkout">
-							<a
-								href="<%=response
-							.encodeURL("./controlePanier.jsp?commande=viderPanier")%>"
-								class="checkout-button button alt">Vider le panier</a>
-						</div>
-					</div>
+					<a
+						href="<%=response.encodeURL("./controleCommande.jsp?commande=effectuerCommander")%>"
+						class="btn btn-primary btn-rounded">
+						Effectuer la commande
+					</a>
 				</div>
 			</div>
-		</section>
-	</div>
-</div>
+	</section>
 </div>
 <%
 	}

@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark primary-color">
 
-    <a class="navbar-brand" href="#">Site marchand</a>
+    <a class="navbar-brand" href="/tpv35/">Site marchand</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav"
         aria-expanded="false" aria-label="Toggle navigation">
