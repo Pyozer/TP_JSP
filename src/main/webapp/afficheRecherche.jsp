@@ -37,7 +37,7 @@
 					article = (Article) listeDesArticles.next();
 				%>
 					<li class="product type-product">
-						<a href="<%=response.encodeURL("./controlePanier.jsp?refArticle=" + article.getRefArticle() + "&amp;commande=ajouterLigne")%>">
+						<a href="<%=response.encodeURL("./afficheArticle.jsp?refArticle=" + article.getRefArticle())%>">
 						<img
 						src="
 							<%

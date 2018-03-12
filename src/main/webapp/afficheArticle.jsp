@@ -13,7 +13,7 @@
 	CatalogueManager catalogueManager = (CatalogueManager) application.getAttribute("catalogueManager");
 	Article target = catalogueManager.chercherArticleParRef(request.getParameter("refArticle"));
 	if(target == null){
-		response.sendRedirect("../index.jsp");	
+		response.sendRedirect("index.jsp");	
 	}
 %>
 
