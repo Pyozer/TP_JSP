@@ -14,19 +14,22 @@
 	if (session.getAttribute("panier") == null) {
 		response.sendRedirect("./index.jsp");
 	} else {
+		String search = "";
+		if(request.getParameter("search") != null)
+			search = request.getParameter("search");
 %>
 
-<%@ include file="navbar.jsp"%>
+<%@ include file="navbar.jsp" %>
 
 <div class="container">
-	<section id="main" class="site-main" role="main">
+	<section id="main" class="my-5" role="main">
 		<h1 class="page-title">
 			Résultats de la recherche :
-			<%= request.getParameter("search") %></h1>
+			<%= search %></h1>
 			<ul class="products">
 				<%
 				CatalogueManager catalogueManager = (CatalogueManager) application.getAttribute("catalogueManager");
-				Iterator<Article> listeDesArticles = catalogueManager.rechercherArticles(request.getParameter("search")).iterator();
+				Iterator<Article> listeDesArticles = catalogueManager.rechercherArticles(search).iterator();
 				Livre livre = null;
 				Musique musique = null;
 				Article article;
