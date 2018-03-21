@@ -17,25 +17,33 @@
 		response.sendRedirect("index.jsp");	
 	}
 %>
-<div class="container">
-	<a href="<%=response.encodeURL("./afficheArticle.jsp?refArticle=" + target.getRefArticle())%>">
-		<div class="card card-cascade narrower">
-		    <!--Card image-->
-		    <div class="view overlay">
-			    <img class="img-fluid" src="
-								<%=(target.getImage().startsWith("http"))?target.getImage():"./images/" + target.getImage()%>
-									" alt="Card image cap">
-			</div>
-		    <!--Card content-->
-		    <div class="card-body">
-		        <!--Title-->
-		        <h4 class="card-title"><%out.print(target.getTitre());%></h4>
-		        <!--Text-->
-		        <p class="card-text"><%out.print(target.getPrix()+" €"); %></p>
-		        <a href="<%=response.encodeURL("./controlePanier.jsp?refArticle=" + target.getRefArticle() + "&amp;commande=ajouterLigne")%>" class="btn btn-primary">Ajouter au Panier</a>
-		    </div>
-		
+<div class="container my-5">
+	<div class="row">
+		<div class="col-12 col-md-4">
+			<img class="img-fluid" src="<%=(target.getImage().startsWith("http"))?
+					target.getImage():"./images/" + target.getImage()%>" 
+					alt="Card image cap">
 		</div>
-	</a>
+		<div class ="col-12 col-md-8">
+			<h2><%= target.getTitre() %></h2>
+			<p>Ref. <%= target.getRefArticle() %></p>
+			<div class="row">
+				<div class="col-12 col-md-3">
+					<%=target.getPrix()%> <i class="fa fa-eur"></i>
+				</div>
+				<div class="col-12 col-md-3">
+					en stock: <%= target.getDisponibilite() %>
+				</div>
+				<div class="col-12 col-md-3">
+					<!-- Mettre ici le sélectionneur de quantité -->_
+				</div>
+				<div class="col-12 col-md-3">
+					<a href="<%=response.encodeURL("./controlePanier.jsp?refArticle=" + target.getRefArticle() + "&amp;commande=ajouterLigne")%>" 
+					class="btn btn-deep-orange btn-sm btn-rounded mr-0">Ajouter <i class="fa fa-2x fa-cart-plus"></i></a>
+				</div>
+
+			</div>
+		</div>
+	</div>
 </div>
 <%@ include file="piedDePage.html"%>
