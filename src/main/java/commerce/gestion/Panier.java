@@ -32,12 +32,16 @@ public class Panier {
 		return lignesPanier;
 	}
 	public void recalculer() {
-		total=0.0;
+		total = 0.0;
 		Iterator<LignePanier> i = lignesPanier.iterator() ;
 		while (i.hasNext()) {
-			LignePanier ligne=(LignePanier)i.next() ;
-			ligne.recalculer();
-			total += ligne.getPrixTotal();
+			LignePanier ligne = (LignePanier) i.next();
+			if(ligne.getQuantite() < 1)
+				i.remove();
+			else {
+				ligne.recalculer();
+				total += ligne.getPrixTotal();
+			}
 		}
 	}
 	public void ajouterLigne(Article inArticle) {

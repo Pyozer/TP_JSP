@@ -11,11 +11,13 @@ package commerce.gestion;
 import commerce.catalogue.domaine.modele.Article;
 
 public class LignePanier {
+	
 	private Article article;
 	private double prixUnitaire;
 	private double prixTotal;
 	private int quantite;
 	public LignePanier() {}
+	
 	public void setArticle(Article inArticle) {
 		article = inArticle;
 	}
@@ -36,7 +38,7 @@ public class LignePanier {
 		quantite = inQuantite;
 	}
 	public int getQuantite() {
-		return quantite ;
+		return quantite;
 	}
 	public void recalculer() {
 		prixTotal = prixUnitaire * quantite;
