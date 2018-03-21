@@ -18,6 +18,13 @@
 		CatalogueManager catalogueManager = (CatalogueManager) application.getAttribute("catalogueManager");
 %>
 
+<script type="text/javascript">
+	function updateQty(refArticle, sum) {
+		var actualQty = document.getElementById("article-" + refArticle).value;
+		document.getElementById("article-" + refArticle).value = parseInt(actualQty) + sum;
+	}
+</script>
+
 <div class="container my-5">
 	<section>
 			<form
@@ -55,13 +62,13 @@
 									<th scope="row">
 										<a href="<%=response.encodeURL("./afficheArticle.jsp?refArticle=" + article.getRefArticle())%>">
 				                            <img
-												class="img-fluid z-depth-0"
+												class="img-fluid z-depth-0 w-50"
 												alt="<%= article.getTitre() %>"
 												src="<%= (article.getImage().startsWith("http")) ? article.getImage() : "./images/" + article.getImage() %>" />
 			                        	</a>
 			                        </th>
 			                        <td>
-			                            <h5 class="mt-3">
+			                            <h5>
 			                                <a href="<%=response.encodeURL("./afficheArticle.jsp?refArticle=" + article.getRefArticle())%>">
 			                                	<strong><%= article.getTitre()%></strong>
 			                                </a>
@@ -71,13 +78,18 @@
 			                        	<%= article.getPrix() %> €
 			                        </td>
 			                        <td class="center-on-small-only">
-									    <input
-									    	class="form-control col-sm-3"
-									    	type="number"
-											title="Qty" value="<%= lignePanier.getQuantite() %>"
+                                        <input
+                                        	id="article-<%= lignePanier.getArticle().getRefArticle() %>"
+									    	class="form-control col-sm-3 float-left"
+											title="Qty"
+											value="<%= lignePanier.getQuantite() %>"
 											name="cart[<%= lignePanier.getArticle().getRefArticle() %>][qty]"
-											min="1" step="1">
-			                        </td>
+											min="1" step="1" readonly>
+                                        <div class="btn-group radio-group ml-2 mt-2" data-toggle="buttons">
+                                           	<button type="button" class="btn btn-sm btn-primary btn-rounded" onclick="updateQty('<%= lignePanier.getArticle().getRefArticle() %>', -1);"><i class="fa fa-minus m-1"></i></button>
+                                            <button type="button" class="btn btn-sm btn-primary btn-rounded" onclick="updateQty('<%= lignePanier.getArticle().getRefArticle() %>', 1);"><i class="fa fa-plus m-1"></i></button>
+                                        </div>
+                                    </td>
 			                        <td class="font-weight-bold">
 			                            <strong><%= lignePanier.getPrixTotal() %>€</strong>
 			                        </td>
@@ -150,4 +162,5 @@
 <%
 	}
 %>
+
 <%@ include file="piedDePage.html"%>

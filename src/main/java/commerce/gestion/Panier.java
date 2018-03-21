@@ -26,7 +26,7 @@ public class Panier {
 	}
 	public double getTotal() {
 		recalculer();
-		return total;
+		return Math.round(total * 100.0) / 100.0;
 	}
 	public List<LignePanier> getLignesPanier() {
 		return lignesPanier;

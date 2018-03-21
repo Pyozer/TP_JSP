@@ -30,7 +30,7 @@ public class LignePanier {
 		return prixUnitaire;
 	}
 	public double getPrixTotal() {
-		return (prixTotal);
+		return Math.round(prixTotal * 100.0) / 100.0;
 	}
 	public void setQuantite(int inQuantite) {
 		quantite = inQuantite;
