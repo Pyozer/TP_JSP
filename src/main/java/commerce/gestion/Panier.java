@@ -41,17 +41,21 @@ public class Panier {
 		}
 	}
 	public void ajouterLigne(Article inArticle) {
+		ajouterLigne(inArticle, 1);
+	}
+	
+	public void ajouterLigne(Article inArticle, int quantite) {
 		LignePanier lp = chercherLignePanier(inArticle) ;
 		if (lp == null) {
 			lp = new LignePanier() ;
 			lp.setArticle(inArticle) ;
 			lp.setPrixUnitaire(inArticle.getPrix()) ;
-			lp.setQuantite(1) ;
+			lp.setQuantite(quantite) ;
 			lp.recalculer() ;
 			lignesPanier.add(lp) ;
 		}
 		else {
-			lp.setQuantite(lp.getQuantite() + 1) ;
+			lp.setQuantite(lp.getQuantite() + quantite) ;
 			lp.recalculer() ;
 		}
 	}

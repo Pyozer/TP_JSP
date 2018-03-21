@@ -10,18 +10,22 @@
 		response.sendRedirect("./index.jsp");
 	} else {
 		Panier lePanier = (Panier) session.getAttribute("panier");
-		CatalogueManager catalogueManager = (CatalogueManager) application
-				.getAttribute("catalogueManager");
+		CatalogueManager catalogueManager = (CatalogueManager) application.getAttribute("catalogueManager");
+		
 		String commande = request.getParameter("commande");
 		String refArticle = request.getParameter("refArticle");
-		Article unArticle;
-		int indice;
+		
+		String qty = request.getParameter("qty");
+		
+		int quantite = (qty != null && qty.trim().length() > 0) ? Integer.parseInt(request.getParameter("qty")) : 1;
+
 		if (commande != null) {
+			Article unArticle;
 			if (commande.equals("ajouterLigne")) {
 				unArticle = new Article();
 				unArticle = catalogueManager
 						.chercherArticleParRef(refArticle);
-				lePanier.ajouterLigne(unArticle);
+				lePanier.ajouterLigne(unArticle, quantite);
 			} else if (commande.equals("recalculerPanier")) {
 				it = lePanier.getLignesPanier().iterator();
 				LignePanier uneLignePanier;

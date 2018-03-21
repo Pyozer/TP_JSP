@@ -37,6 +37,8 @@
 	<script type="text/javascript">
 		function updateQty(refArticle, sum) {
 			var actualQty = document.getElementById("article-" + refArticle).value;
+			var newQty = parseInt(actualQty) + sum;
+			if(ne)
 			document.getElementById("article-" + refArticle).value = parseInt(actualQty) + sum;
 		}
 	</script>
