@@ -18,13 +18,6 @@
 		CatalogueManager catalogueManager = (CatalogueManager) application.getAttribute("catalogueManager");
 %>
 
-<script type="text/javascript">
-	function updateQty(refArticle, sum) {
-		var actualQty = document.getElementById("article-" + refArticle).value;
-		document.getElementById("article-" + refArticle).value = parseInt(actualQty) + sum;
-	}
-</script>
-
 <div class="container my-5">
 	<section>
 			<form

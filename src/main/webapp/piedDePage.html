@@ -22,6 +22,8 @@
 		<!--/Copyright-->
 	</footer>
 	
+	<!-- JQuery -->
+	<script type="text/javascript" src="./js/jquery-3.3.1.min.js"></script>
 	<!-- Bootstrap tooltips -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
 	<!-- Bootstrap core JavaScript -->
@@ -31,5 +33,12 @@
 	<script type="text/javascript" src="./js/jplayer-2.9.2/jplayer/jquery.jplayer.min.js"></script>
 	<script type="text/javascript" src="./js/jplayer-2.9.2/add-on/jplayer.playlist.min.js"></script>
 	<script type="text/javascript" src="./js/playListJs.jsp"></script>
+	
+	<script type="text/javascript">
+		function updateQty(refArticle, sum) {
+			var actualQty = document.getElementById("article-" + refArticle).value;
+			document.getElementById("article-" + refArticle).value = parseInt(actualQty) + sum;
+		}
+	</script>
 </body>
 </html>
