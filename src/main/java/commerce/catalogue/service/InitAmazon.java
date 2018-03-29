@@ -79,7 +79,7 @@ public class InitAmazon {
 		String keywords = keywordsToSearch;
 		search.setKeywords(keywords);
 
-		Livre livre ;
+		Livre livre;
 		Musique musique ;
 		Piste piste ;
 		SAXBuilder builder = new SAXBuilder();
@@ -92,26 +92,30 @@ public class InitAmazon {
 			document = builder.build(new StringReader(apaiIO.runOperation(search)));
 			racine = document.getRootElement() ;
 			espaceNom = Namespace.getNamespace(racine.getNamespaceURI());
-
+			
 			if (espaceNom != null && !racine.getName().equals("ItemSearchErrorResponse")) {
 				Element items = racine.getChild("Items",espaceNom) ;
-				Iterator<Element> itemIterator = items.getChildren("Item",espaceNom).iterator() ;
+				Iterator<Element> itemIterator = items.getChildren("Item", espaceNom).iterator() ;
 				Element item ;
 				Element itemAttributes ;
 				Element image ;
+				
 				int i = 0 ;
 				while (itemIterator.hasNext() && i != 5) {
 					item = itemIterator.next() ;
+					
 					itemAttributes = item.getChild("ItemAttributes",espaceNom);
+					
 					image = item.getChild("LargeImage",espaceNom);
 					musique = new Musique();
+					livre = new Livre();
 					try 
 					{
-						if (itemAttributes.getChild("ProductGroup",espaceNom).getText().equals("Music")) {
+						if (itemAttributes.getChild("ProductGroup",espaceNom).getText().equalsIgnoreCase(categoryToSearch)) {
 							musique.setRefArticle(item.getChild("ASIN",espaceNom).getText());
 							musique.setTitre(itemAttributes.getChild("Title",espaceNom).getText());
 							musique.setEAN(itemAttributes.getChild("EAN",espaceNom).getText());
-							musique.setImage(image.getChild("URL",espaceNom).getText());
+							musique.setImage(image.getChild("URL", espaceNom).getText());
 							musique.setPrix(Integer.parseInt(item.getChild("OfferSummary",espaceNom).getChild("LowestNewPrice",espaceNom).getChild("Amount",espaceNom).getText())/100.0);
 							musique.setDisponibilite(1);
 
@@ -152,6 +156,19 @@ public class InitAmazon {
 							}
 							catalogueManager.soumettreArticle(musique) ;
 							i ++ ;
+						}
+						else if (itemAttributes.getChild("ProductGroup",espaceNom).getText().equalsIgnoreCase(categoryToSearch)) {
+							System.out.println("");
+							
+							livre.setRefArticle(item.getChild("ASIN",espaceNom).getText());
+							livre.setTitre(itemAttributes.getChild("Title",espaceNom).getText());
+							livre.setImage(image.getChild("URL", espaceNom).getText());
+							livre.setPrix(Integer.parseInt(item.getChild("OfferSummary",espaceNom).getChild("LowestNewPrice",espaceNom).getChild("Amount",espaceNom).getText())/100.0);
+							livre.setDisponibilite(1);
+							livre.setAuteur(item.getChild("Author",espaceNom).getText());
+							
+							catalogueManager.soumettreArticle(livre) ;
+							i++;
 						}
 					}
 					catch (NullPointerException e) {

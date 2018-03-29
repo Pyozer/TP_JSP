@@ -28,5 +28,7 @@ public class Loader implements ServletContextListener {
 		}
 		new InitAmazon(catalogueManager, "Music", "Ibrahim Maalouf").init();
 		new InitAmazon(catalogueManager, "Music", "Renaud").init();
+		new InitAmazon(catalogueManager, "Music", "David guetta").init();
+		new InitAmazon(catalogueManager, "Music", "Parov stelar").init();
 	}	  
 }
