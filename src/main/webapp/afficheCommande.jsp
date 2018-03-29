@@ -20,7 +20,7 @@
 
 <div class="container my-5">
  <h1 class="text-center mb-4">Commande</h1>
-	<form action ="./submitCommande.jsp">
+	<form action="./submitCommande.jsp">
 		<div class="row">
 			<div class="col-12 col-md-6">
 				<!-- nom prénom, adresse ville code postal,pays, email, moyen de paiement(onglets) -->   
@@ -28,7 +28,7 @@
 			    <!-- Material input text -->
 			    <div class="md-form">
 			        <i class="fa fa-user prefix grey-text"></i>
-			        <input type="text" id="inputName" class="form-control" required>
+			        <input type="text" id="inputName" class="form-control">
 			        <label for="inputName">Nom</label>
 			   	</div>
 			   	<!-- Material input text -->
@@ -154,7 +154,7 @@
 					 </div>
 				
 				<div class="text-center mt-4">
-			        <a class="btn btn-outline-info" type="submit">Valider<i class="fa fa-paper-plane-o ml-2"></i></a>
+			        <button class="btn btn-outline-info" type="submit">Valider<i class="fa fa-paper-plane-o ml-2"></i></button>
 			    </div>
 			    
 			</div>
