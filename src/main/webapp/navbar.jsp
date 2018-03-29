@@ -26,6 +26,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="<%=response.encodeURL("./controlePanier.jsp")%>">Panier  <span class="badge badge-pill pink"><%= nbArticle %></span></a>
             </li>
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catégories</a>
+                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="./afficheRecherche.jsp?category=livre">Livres</a>
+                    <a class="dropdown-item" href="./afficheRecherche.jsp?category=musique">Musiques</a>
+                </div>
+            </li>
         </ul>
         <!-- Links -->
 

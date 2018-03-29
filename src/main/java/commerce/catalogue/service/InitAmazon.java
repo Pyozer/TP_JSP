@@ -38,9 +38,13 @@ import commerce.catalogue.domaine.modele.Piste;
 public class InitAmazon {
 
 	private CatalogueManager catalogueManager ;
+	private String categoryToSearch;
+	private String keywordsToSearch;
 
-	public InitAmazon(CatalogueManager catalogueManager) {
+	public InitAmazon(CatalogueManager catalogueManager, String category, String keywords) {
 		this.catalogueManager = catalogueManager ;
+		this.categoryToSearch = category;
+		this.keywordsToSearch = keywords;
 	}
 
 	public void init() {
@@ -55,11 +59,11 @@ public class InitAmazon {
 		 *      DE: ecs.amazonaws.de 
 		 *      FR: ecs.amazonaws.fr 
 		 *      JP: ecs.amazonaws.jp
-		 */
+		 */		
 		//String ENDPOINT = "ecs.amazonaws.fr" ; 
 		String ENDPOINT = "odp.tuxfamily.org";
-		String AWS_ACCESS_KEY_ID = "YOUR_ACCESS_KEY_ID_HERE";
-		String AWS_SECRET_KEY = "YOUR_SECRET_KEY_HERE";
+		String AWS_ACCESS_KEY_ID = "AKIAI2CSFPSUXELHG7NQ";
+		String AWS_SECRET_KEY = "htKob5ZeLeLEZp/7IF9qW7DrqpZfjgsUZWTI62rV";
 
 		GenericConfiguration conf = new GenericConfiguration();
 		conf.setAccessKey(AWS_ACCESS_KEY_ID) ;
@@ -70,9 +74,9 @@ public class InitAmazon {
 		ApaiIO apaiIO = new ApaiIO();
 		apaiIO.setConfiguration(conf) ;
 		Search search = new Search();
-		search.setCategory("Music");
+		search.setCategory(categoryToSearch);
 		search.setResponseGroup("Offers,ItemAttributes,Images") ;
-		String keywords = "Ibrahim Maalouf" ;
+		String keywords = keywordsToSearch;
 		search.setKeywords(keywords);
 
 		Livre livre ;

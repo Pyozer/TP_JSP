@@ -7,12 +7,16 @@
 
 package commerce.catalogue.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Query;
 
 import commerce.catalogue.domaine.modele.Article;
+import commerce.catalogue.domaine.modele.Livre;
+import commerce.catalogue.domaine.modele.Musique;
 import commerce.catalogue.domaine.modele.Piste;
 import commerce.catalogue.domaine.utilitaire.HibernateUtil;
 import commerce.catalogue.domaine.utilitaire.UniqueKeyGenerator;
@@ -113,6 +117,30 @@ public class CatalogueManager {
 		return articles ;
 	}
 	
+	public List<Article> getArticles(String category) throws Exception {
+		if(category == null || category.length() < 1) {
+			return getArticles();
+		}
+		
+		return filterArticleByCat(getArticles(), category);
+	}
+	
+	private List<Article> filterArticleByCat(List<Article> articlesNotFiltered, String category) throws Exception {
+		List<Article> articlesFiltered = new ArrayList<Article>();
+		
+		Iterator<Article> listeDesArticles = articlesNotFiltered.iterator();
+		Article article = null;
+		while (listeDesArticles.hasNext()) {
+			article = (Article) listeDesArticles.next();
+			if((article instanceof Livre) && category.equalsIgnoreCase("livre")) {
+				articlesFiltered.add(article);
+			} else if((article instanceof Musique) && category.equalsIgnoreCase("musique")) {
+				articlesFiltered.add(article);
+			}
+		}
+		return articlesFiltered;
+	}
+	
 	public List<Article> rechercherArticles(String searchTitre) throws Exception {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession() ;
 		try {
@@ -129,4 +157,13 @@ public class CatalogueManager {
 		}
 		return articles ;
 	}
+	
+	public List<Article> rechercherArticles(String searchTitre, String category) throws Exception {
+		if(category == null || category.length() < 1) {
+			return rechercherArticles(searchTitre);
+		}
+		
+		return filterArticleByCat(rechercherArticles(searchTitre), category);
+	}
 }
+	
