@@ -17,10 +17,10 @@
 	} else {
 		String search = null;
 		String category = null;
-		if(request.getParameter("search") != null)
+		if(request.getParameter("search") != null && !request.getParameter("search").equalsIgnoreCase("null"))
 			search = request.getParameter("search");
 		
-		if(request.getParameter("category") != null)
+		if(request.getParameter("category") != null && !request.getParameter("category").equalsIgnoreCase("null"))
 			category = request.getParameter("category");
 %>
 
@@ -39,6 +39,14 @@
 				Résultats de la recherche dans <%= category %>: <%= search %>
 			<% } %>
 		</h1>
+		
+		<form action="./afficheRecherche.jsp" method="GET">
+			<div class="md-form">
+			    <i class="fa fa-search" aria-hidden="true"></i>
+			    <input class="form-control" type="text" name="search" placeholder="Rechercher" aria-label="Rechercher">
+			</div>
+           	<input type="hidden" name="category" value="<%= category %>" />
+        </form>
 		<div class="row">
 			<%
 			CatalogueManager catalogueManager = (CatalogueManager) application.getAttribute("catalogueManager");
