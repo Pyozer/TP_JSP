@@ -144,7 +144,7 @@
 						</tbody>
 					</table>
 					<a
-						href="<%=response.encodeURL("./controleCommande.jsp?commande=effectuerCommander")%>"
+						href="<%=response.encodeURL("./afficheCommande.jsp?")%>"
 						class="btn btn-primary btn-rounded">
 						Effectuer la commande
 					</a>
