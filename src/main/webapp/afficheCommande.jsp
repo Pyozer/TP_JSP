@@ -28,44 +28,44 @@
 			    <!-- Material input text -->
 			    <div class="md-form">
 			        <i class="fa fa-user prefix grey-text"></i>
-			        <input type="text" id="inputName" class="form-control">
+			        <input type="text" id="inputName" class="form-control" required>
 			        <label for="inputName">Nom</label>
 			   	</div>
 			   	<!-- Material input text -->
 			    <div class="md-form">
 			        <i class="fa fa-user prefix grey-text"></i>
-			        <input type="text" id="inputPrenom" class="form-control" >
+			        <input type="text" id="inputPrenom" class="form-control" required>
 			        <label for="inputPrenom">Prénom</label>
 			   	</div>
 			   		<!-- Material input text -->
 			    <div class="md-form">
 			        <i class="fa fa-home prefix grey-text"></i>
-			        <input type="text" id="inputAdresse" class="form-control">
+			        <input type="text" id="inputAdresse" class="form-control"required>
 			        <label for="inputAdresse">Adresse</label>
 			   	</div>
 			   		<!-- Material input text -->
 			    <div class="md-form">
 			        <i class="fa fa-map-marker prefix grey-text"></i>
-			        <input type="text" id="inputVille" class="form-control">
+			        <input type="text" id="inputVille" class="form-control"required>
 			        <label for="inputVille">Ville</label>
 			   	</div>
 			   		<!-- Material input text -->
 			    <div class="md-form">
 			        <i class="fa fa-map-marker prefix grey-text"></i>
-			        <input type="number" id="inputCodePostal" class="form-control">
+			        <input type="number" id="inputCodePostal" class="form-control"required>
 			        <label for="inputCodePostal">Code Postal</label>
 			   	</div>
 			   		<!-- Material input text -->
 			    <div class="md-form">
 			        <i class="fa fa-globe prefix grey-text"></i>
-			        <input type="text" id="inputPays" class="form-control">
+			        <input type="text" id="inputPays" class="form-control"required>
 			        <label for="inputPays">Pays</label>
 			   	</div>
 			
 			    <!-- Material input email -->
 			    <div class="md-form">
 			        <i class="fa fa-envelope prefix grey-text"></i>
-			        <input type="email" id="inputEmail" class="form-control">
+			        <input type="email" id="inputEmail" class="form-control"required>
 			        <label for="inputEmail">Adresse email</label>
 			    </div>	
 			</div>
