@@ -30,6 +30,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catégories</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                	<a class="dropdown-item" href="./afficheRecherche.jsp">Tout</a>
                     <a class="dropdown-item" href="./afficheRecherche.jsp?category=livre">Livres</a>
                     <a class="dropdown-item" href="./afficheRecherche.jsp?category=musique">Musiques</a>
                 </div>

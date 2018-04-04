@@ -17,6 +17,7 @@ public class Piste {
 	private String refPiste;
 	private String titre;
 	private String url;
+	private Integer duree;
 
 	@Id
 	public String getRefPiste() {
@@ -41,6 +42,14 @@ public class Piste {
 	public void setUrl(String inUrl) {
 		url = inUrl;
 	}
+	
+	@Basic
+	public Integer getDuree() {
+		return duree;
+	}
+	public void setDuree(Integer inDuree) {
+		duree = inDuree;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -59,10 +68,17 @@ public class Piste {
 				return false;
 		else if (!titre.equals(other.titre))
 			return false;
+		
 		if (url == null && other.url != null)
 				return false;
 		else if (!url.equals(other.url))
 			return false;
+		
+		if (duree == null && other.duree != null)
+			return false;
+		else if (!duree.equals(other.duree))
+			return false;
+		
 		return true;
 	}
 }

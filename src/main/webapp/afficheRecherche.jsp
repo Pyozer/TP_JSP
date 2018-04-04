@@ -42,12 +42,12 @@
 		
 		<form action="./afficheRecherche.jsp" method="GET">
 			<div class="md-form">
-			    <i class="fa fa-search" aria-hidden="true"></i>
-			    <input class="form-control" type="text" name="search" placeholder="Rechercher" aria-label="Rechercher">
-			</div>
+		        <i class="fa fa-search prefix "></i>
+		        <input class="form-control" type="text" id="formSearch" name="search" placeholder="Rechercher" aria-label="Rechercher">
+		    </div>
            	<input type="hidden" name="category" value="<%= category %>" />
         </form>
-		<div class="row">
+		<div class="row mt-4">
 			<%
 			CatalogueManager catalogueManager = (CatalogueManager) application.getAttribute("catalogueManager");
 			List<Article> articles = null;
@@ -131,13 +131,12 @@
 							            <span class="float-right">
 							            	<a href="<%=response.encodeURL("./controlePanier.jsp?refArticle=" + article.getRefArticle() + "&amp;commande=ajouterLigne")%>" class="btn btn-deep-orange btn-sm btn-rounded mr-0"><i class="fa fa-cart-plus"></i></a>
 							            </span>
-	      								</div>	
-	    							</div> 
+	      							</div>	
+	    					</div> 
 						</div>	
 					</div>
-							
 				<% }
-			}%>
+			} %>
 		</div>
 	</section>
 </div>

@@ -55,6 +55,8 @@ public class Article {
 	
 	@Basic
 	public String getLangue() {
+		if(langue == null)
+			return "Inconnue";
 		return langue;
 	}
 	public void setLangue(String inLangue) {
